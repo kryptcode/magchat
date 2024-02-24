@@ -1,4 +1,4 @@
-import { Client, Databases } from 'appwrite';
+import { Client, Databases, Account } from 'appwrite';
 
 const client = new Client();
 
@@ -11,7 +11,9 @@ client
     .setProject('65d1ed28e6ed7dcd1560');
 
 export const databases = new Databases(client)
+export const account = new Account(client)
 
-const promise = databases.createDocument(DATABASE_ID, COLLECTION_ID, '', {  })
+// const promise = databases.createDocument(DATABASE_ID, COLLECTION_ID, '', {  })
+
 
 export default client

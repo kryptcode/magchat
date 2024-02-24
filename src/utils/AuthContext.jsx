@@ -11,8 +11,20 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    setLoading(false);
+    getUseronLoad()
   }, [])
+
+  const getUseronLoad = async () => {
+    try {
+        const accountDetails = await account.get()
+        setUser(accountDetails)
+
+    } catch (error) {
+        console.error(error);
+    }
+
+    setLoading(false)
+  }
   
   async function handleUserLogin(e, credentials) {
     e.preventDefault();
@@ -21,7 +33,7 @@ export const AuthProvider = ({ children }) => {
         const response = await account.createEmailSession(credentials.email, credentials.password)
         // console.log(response);
 
-        const accountDetails = account.get()
+        const accountDetails = await account.get()
         setUser(accountDetails)
 
         navigate('/')
@@ -30,9 +42,15 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  async function handleUserLogout() {
+    await account.deleteSession('current')
+    setUser(null)
+  }
+
   const contextData = {
     user,
-    handleUserLogin
+    handleUserLogin,
+    handleUserLogout
   };
 
   return (

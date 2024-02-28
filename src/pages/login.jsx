@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../utils/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { user, handleUserLogin } = useAuth();
@@ -58,6 +58,7 @@ const Login = () => {
             <input type="submit" value="Login" className="btn btn--lg btn--main" />
           </div>
         </form>
+        <p>Don't have an account? Register <Link to={'/register'}>here</Link></p>
       </div>
     </div>
   );
